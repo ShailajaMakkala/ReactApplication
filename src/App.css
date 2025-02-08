@@ -1,183 +1,76 @@
-/* Reset and Global Styling */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Navbar Styling */
-.navbar {
-  background-color: #343a40;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.navbar a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 12px 25px;
-  border-radius: 25px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.navbar a:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  color: #007bff;
-  transform: scale(1.05);
-}
-
-/* Main Content Styling */
-main {
-  max-width: 800px;
-  padding: 40px;
-  margin: 20px auto;
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-h1, h2, h3, p {
-  margin-bottom: 1rem;
-}
-
-/* Button Styling */
-button {
-  padding: 10px 15px;
-  background-color: #e9ecef;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 100px;
-  text-align: center;
-}
-
-button:hover {
-  background-color: #218838;
-  transform: scale(1.05);
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .navbar a {
-    font-size: 16px;
-  }
-
-  main {
-    padding: 15px;
-  }
-}
-
-/* List Container Styling */
-ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  list-style-type: none;
-  padding: 0;
-  justify-content: center;
-}
-
-li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-  background-color: #e9ecef;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  min-width: 150px;
-  max-width: 200px;
-  text-align: center;
-  transition: transform 0.2s ease;
-}
-
-li:hover {
-  transform: translateY(-4px);
-}
-
-li button {
-  margin-top: 10px;
-  padding: 8px 12px;
-  background-color: #007bff4d;
-  color: #ffffff;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-li button:hover {
-  background-color: #0056b3;
-}
-
-/* Home Section Styling */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+/* Ensure .veg-background covers the full screen */
+.veg-background {
+  background-image: url('/images/home.png'); /* Correct path to image */
   background-size: cover;
   background-position: center;
-  color: rgb(215, 43, 43);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.welcome-title {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.welcome-message {
-  font-size: 1.5rem;
-  text-align: center;
-  max-width: 600px;
-}
-
-/* Container for Brand Checkboxes */
-.brand-checkbox-container {
-  display: flex;
-  flex-wrap: wrap; /* Allows wrapping if the screen is too narrow */
-  gap: 10px; /* Space between each checkbox */
-  margin-bottom: 20px; /* Space below the filter section */
-}
-
-.brand-checkbox-container label {
-  display: flex;
-  align-items: center; /* Align checkbox and label text */
-  margin-right: 10px; /* Space between checkboxes */
-}
-
-.brand-checkbox-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.brand-checkbox-container label {
-  display: flex;
+  background-repeat: no-repeat;
+  height: 100vh; /* Full viewport height */
+  width: 100%;  /* Full viewport width */
+  margin: 0; /* Remove extra margin */
+  padding: 0;  /* Adjust padding to ensure no overflow */
+  overflow: hidden; /* Prevents any potential overflow */
+  filter: blur(3px); /* Apply blur effect to the background */
+  display: flex; /* Use flexbox for easy centering of content */
+  justify-content: center;
   align-items: center;
-  margin-right: 10px;
 }
+
+/* Ensure proper size for the 'Veg Items' section */
+.veg-items {
+  width: 100%;
+  max-width: 1200px; /* Set a max-width for large screens */
+  padding: 20px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexibly size the items */
+  gap: 20px; /* Add spacing between items */
+  margin: 0 auto; /* Center the section */
+}
+
+.veg-items .card {
+  max-width: 100%;  /* Ensure cards are responsive */
+  width: 100%;
+  height: auto;
+}
+
+/* Styling for 'Veg' section title */
+.veg-title {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  padding: 20px 0;
+  margin: 0;
+}
+
+/* Ensure card image fits properly */
+.card-img-top {
+  width: 100%; /* Ensure images fill the card container */
+  height: auto; /* Keep image ratio */
+  object-fit: cover; /* Prevent stretching */
+}
+
+/* Hover effect for card */
+.card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Optional: Add padding to the cards for a better layout */
+.card-body {
+  padding: 15px;
+  text-align: center;
+}
+
+/* Font styling for Veg Items links */
+.veg-link {
+  font-family: 'Georgia', serif;
+  font-size: 18px;
+  color: #333;
+}
+
+.veg-link:hover {
+  color: #007bff; /* Hover color */
+}
+ 

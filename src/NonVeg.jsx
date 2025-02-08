@@ -1,66 +1,76 @@
-// NonVeg.js
-
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from './store';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts, addToCart } from './Store';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NonVeg() {
-  const nonvegProducts = useSelector(state => state.products.nonveg);
+  const nonvegProducts = useSelector(state => state.products.nonVeg);
   const dispatch = useDispatch();
 
-  // Get unique brands for the checkboxes
-  const brands = [...new Set(nonvegProducts.map(product => product.brand))];
-
-  // State to track selected brands for filtering
-  const [selectedBrands, setSelectedBrands] = useState([]);
-
-  // Handle brand checkbox selection
-  const handleBrandChange = (brand) => {
-    setSelectedBrands((prevSelected) =>
-      prevSelected.includes(brand)
-        ? prevSelected.filter(b => b !== brand)
-        : [...prevSelected, brand]
-    );
-  };
-
-  // Filter products based on selected brands
-  const filteredProducts = selectedBrands.length
-    ? nonvegProducts.filter(product => selectedBrands.includes(product.brand))
-    : nonvegProducts;
-
-  // Map filtered products to display
-  const items = filteredProducts.map((product, index) => (
-    <li key={index}>
-      Item: {product.name} <br />
-      Brand: {product.brand} <br />
-      Price: ${product.price.toFixed(2)}
-      <button onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
-    </li>
-  ));
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   return (
-    <>
-      <h3 style={{ color: "purple" }}>Non-Veg Items:</h3>
-      
-      {/* Brand Checkboxes */}
-      <div className="brand-checkbox-container">
-      <h4>Filter by Brand:</h4>
-        {brands.map((brand, index) => (
-          <label key={index} style={{ display: "block" }}>
-            <input
-              type="checkbox"
-              value={brand}
-              checked={selectedBrands.includes(brand)}
-              onChange={() => handleBrandChange(brand)}
-            />
-            {brand}
-          </label>
-        ))}
-      </div>
+    <div
+      className="container-fluid vh-80 p-0"
+      style={{
+        backgroundImage: 'url(/images/home.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: '90vh',
+        width: '100vw',
+        position: 'relative',
+      }}
+    >
+      <div
+        className="nonveg-overlay"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          color: '#fff',
+          padding: '20px',
+          overflowY: 'auto',
+        }}
+      >
+        <h3 className="text-center my-4">Non-Veg Items</h3>
 
-      {/* Display Filtered Products */}
-      <ul>{items.length ? items : "No products available for the selected brand(s)"}</ul>
-    </>
+        {/* Display Non-Veg Products */}
+        <div className="row">
+          {nonvegProducts.length > 0 ? (
+            nonvegProducts.map((product, index) => (
+              <div key={index} className="col-12 col-md-4 mb-4"> {/* 3 cards per row */}
+                <div className="card h-100 shadow-sm border-0 rounded-lg hover-shadow-lg">
+                  <img 
+                    src={`/images/${product.image}`} 
+                    alt={product.name} 
+                    className="card-img-top hover-zoom" 
+                    style={{ height: '350px', objectFit: 'cover' }} // Adjusted image to fit within card
+                  />
+                  <div className="card-body p-3">
+                    <h6 className="card-title">{product.name}</h6>
+                    <p className="card-text mb-1">Category: {product.category}</p>
+                    <p className="card-text mb-1">Price: ${product.price.toFixed(2)}</p>
+                    <p className="card-text mb-1">Quantity: {product.quantity}</p>
+                    <button 
+                      onClick={() => dispatch(addToCart(product))} 
+                      className="btn btn-primary btn-sm btn-block transition-all hover-btn">
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center">No Non-Veg Products Available</p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
